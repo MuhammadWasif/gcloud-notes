@@ -13,7 +13,7 @@ Check the installation
 Output should be like below:
 
 <center>
-<img src="./nginx.png" />
+<img src="images/nginx.png" />
 </center>
 
 ##### NGINX Server is installed and should be running!
