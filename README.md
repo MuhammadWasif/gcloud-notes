@@ -72,6 +72,71 @@ To create cluster, run
 
 After creating your cluster, you need to get authentication credentials to interact with the cluster.
 
-`gcloud conatiner clusters get-credentials [cluster-name]`
+`gcloud container clusters get-credentials [cluster-name]`
 
 **Now, cluster is ready to use! You can run Kubernetes**
+
+<center>
+<h2>Using Cloud Storage</h2>
+</center>
+
+Google Cloud Storage allows world-wide storage and retrieval of any amount of data at any time. You can use Google Cloud Storage for a range of scenarios including serving website content, storing data for archival and disaster recovery, or distributing large data objects to users via direct download.
+
+### Creating Storage Bucket
+
+To create a storage bucket, execute the following commands,  
+`gsutil mb gs://BUKCET-NAME/`  
+This will create a storage bucket!
+
+### Upload a file
+
+To upload a file, download the file in temporary instance. For example
+
+`wget --output-document ada.jpg https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_portrait.jpg/800px-Ada_Lovelace_portrait.jpg`
+
+This will download the file in system.
+
+Now, copy file into bucket,  
+`gsutil cp ada.jpg gs://BUCKET-NAME/`
+
+_This will upload the file on bucket!_
+
+### Download from Bucket
+
+To download the file from bucket to local system, run  
+`gsutil cp -r gs://BUCKET-NAME/ada.jpg .`
+
+_This will download the file_
+
+### Move File to a Folder in Bucket
+
+To create a folder inside a bucket and move a file into it, you can copy the file into folder name using `gsutil cp` command  
+`gsutil cp gs://YOUR-BUCKET-NAME/ada.jpg gs://YOUR-BUCKET-NAME/image-folder/`
+
+_Now the image file has been copied into a new folder in your bucket._
+
+### List Content of Bucket
+
+Use `gsutil ls` command to list content of a bucket or a folder inside bucket.  
+`gsutil ls gs://BUCKET-NAME/`
+
+It will show output like following:
+
+```bash
+gs://YOUR-BUCKET-NAME/ada.jpg
+gs://YOUR-BUCKET-NAME/image-folder/
+```
+
+### Managing File Access or Deleting File
+
+Use the `gsutil acl ch` command to grant all users read permission for the object stored in your bucket:
+
+`gsutil acl ch -u AllUsers:R gs://BUCKET-NAME/ada.jpg`
+
+Now, the file is available for anyone on internet!
+
+To remove the access,  
+`gsutil acl ch -d AllUsers gs://BUCKET-NAME/ada.jpg`
+
+To delete a file,  
+`gsutil rm gs://YOUR-BUCKET-NAME/ada.jpg`
